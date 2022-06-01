@@ -28,10 +28,12 @@ export default async function (context, req) {
     const docSnap = await getDoc(docRef);
     
     let urlRespuesta = "";
+    let presupuestoFinalizado = "";
 
     if (docSnap.exists()) {
         // Si existe el usuario se debe consultar en que paso del tutorial va, para regresar la url a cual se debe dirigir.
         urlRespuesta = docSnap.data().urlUltimoPaso;
+        presupuestoFinalizado = docSnap.data().presupuestoFinalizado;
         
     } else {
         // Si no exitse se agrega el ducumento a la coleccion usuarios se regresa la url del index del tutorial
@@ -46,7 +48,8 @@ export default async function (context, req) {
     context.res = {
         // status: 200, /* Defaults to 200 */
         body: {
-            urlRespuesta: urlRespuesta
+            urlRespuesta: urlRespuesta,
+            presupuestoFinalizado: presupuestoFinalizado
         }
     };
 }
